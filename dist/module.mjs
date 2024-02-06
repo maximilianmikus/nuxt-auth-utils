@@ -41,7 +41,7 @@ const module = defineNuxtModule({
       });
     }
     const runtimeConfig = nuxt.options.runtimeConfig;
-    runtimeConfig.auth = defu(runtimeConfig.auth, options);
+    runtimeConfig.public.auth = defu(runtimeConfig.public.auth, options);
     runtimeConfig.session = defu(runtimeConfig.session, {
       name: "nuxt-session",
       password: "",
@@ -105,14 +105,14 @@ const module = defineNuxtModule({
       region: "",
       userPoolId: ""
     });
-    if (!runtimeConfig?.auth?.serverHandler?.getSession) {
+    if (!runtimeConfig?.public?.auth?.serverHandler?.getSession) {
       addServerHandler({
         handler: resolver.resolve("./runtime/server/api/session.delete"),
         route: "/api/_auth/session",
         method: "get"
       });
     }
-    if (!runtimeConfig?.auth?.serverHandler?.deleteSession) {
+    if (!runtimeConfig?.public?.auth?.serverHandler?.deleteSession) {
       addServerHandler({
         handler: resolver.resolve("./runtime/server/api/session.get"),
         route: "/api/_auth/session",
